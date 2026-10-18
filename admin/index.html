@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d1730">
+<title>Управление сайтом — Шэнэхэнские буузы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--night:#0d1730;--blue:#16295a;--blue-2:#21407f;--gold:#e6ac3e;--gold-2:#f6d28d;--rose:#c2405a;--green:#1f8a5b;
+    --cream:#f6f1e7;--paper:#fffdf8;--ink:#171c2a;--muted:#666b7a;--line:#e2dacb;--warn:#fff4d6}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Manrope,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased;padding-bottom:120px}
+  button,input,select,textarea{font:inherit;color:inherit}
+  button{cursor:pointer}
+  [hidden]{display:none!important}
+  .wrap{max-width:860px;margin:0 auto;padding:0 16px}
+
+  /* top bar */
+  .top{background:var(--night);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 2px 20px rgba(0,0,0,.2)}
+  .top .wrap{display:flex;align-items:center;gap:12px;min-height:64px}
+  .logo{width:40px;height:40px;border-radius:50%;background:var(--gold);display:grid;place-items:center;flex:none}
+  .logo svg{width:24px;height:24px;color:var(--night)}
+  .top b{display:block;font-size:1rem;line-height:1.15}
+  .top small{display:block;font-size:.72rem;color:var(--gold-2);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .top .sp{flex:1}
+  .tbtn .short{display:none}
+  .tbtn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:12px;padding:9px 12px;font-weight:700;font-size:.85rem;text-decoration:none;white-space:nowrap}
+  .tabs{display:flex;gap:6px;padding:0 16px 12px;max-width:860px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{border:0;background:rgba(255,255,255,.1);color:#fff;border-radius:999px;padding:10px 16px;font-weight:800;font-size:.92rem;white-space:nowrap}
+  .tab.on{background:var(--gold);color:var(--night)}
+
+  /* cards & forms */
+  h1{font-size:1.5rem;line-height:1.2}
+  h2{font-size:1.15rem}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:16px}
+  label.f{display:block;font-weight:700;font-size:.88rem;margin:14px 0 6px}
+  label.f small{font-weight:600;color:var(--muted)}
+  .in{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;font-size:1rem;outline:none;transition:border-color .15s}
+  .in:focus{border-color:var(--blue-2)}
+  textarea.in{min-height:84px;resize:vertical}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:14px;padding:14px 20px;font-weight:800;font-size:1rem;text-decoration:none}
+  .btn-gold{background:var(--gold);color:var(--night)}
+  .btn-blue{background:var(--blue);color:#fff}
+  .btn-ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+  .btn-red{background:#fff;border:1.5px solid #f0c3cb;color:var(--rose)}
+  .btn-wide{width:100%}
+  .btn:disabled{opacity:.55;cursor:default}
+  .hint{color:var(--muted);font-size:.86rem;margin-top:6px}
+  .err{background:#fde8ec;color:#9b1c33;border-radius:12px;padding:12px 14px;margin-top:14px;font-weight:700;font-size:.92rem}
+  .ok{background:#e3f5ec;color:#145c3d;border-radius:12px;padding:12px 14px;margin-top:14px;font-weight:700;font-size:.92rem}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:520px){.row2{grid-template-columns:1fr}}
+
+  /* login */
+  .login{min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:linear-gradient(160deg,#16295a,#0d1730 70%)}
+  .login .card{width:100%;max-width:420px;margin:0;padding:28px 24px}
+  .login .logo{width:56px;height:56px;margin-bottom:14px}.login .logo svg{width:32px;height:32px}
+  .pw{position:relative}.pw .in{padding-right:56px}
+  .pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;padding:8px;font-size:1.15rem}
+
+  /* menu editor */
+  .tools{display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
+  .tools .in{flex:1;min-width:200px}
+  .stat{color:var(--muted);font-size:.86rem;margin-top:10px}
+  .cat{background:var(--paper);border:1px solid var(--line);border-radius:18px;margin-top:14px;overflow:hidden}
+  .cat-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
+  .cat-h h2{flex:1}
+  .cat-h .cnt{color:var(--muted);font-weight:700;font-size:.85rem;white-space:nowrap}
+  .cat-h .arr{transition:transform .2s;font-size:1.1rem;color:var(--muted)}
+  .cat.open .arr{transform:rotate(90deg)}
+  .cat-b{display:none;border-top:1px solid var(--line)}
+  .cat.open .cat-b{display:block}
+  .cat-tools{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;background:#faf6ee}
+  .cat-tools .in{flex:1;min-width:160px;padding:9px 12px;font-size:.92rem}
+  .sbtn{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-weight:700;font-size:.85rem;white-space:nowrap}
+  .sbtn.red{color:var(--rose);border-color:#f0c3cb}
+  .it{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:14px 16px;border-top:1px dashed var(--line)}
+  .it:first-of-type{border-top:0}
+  .it.changed{background:var(--warn)}
+  .it.off .thumb,.it.off .nm{opacity:.45}
+  .thumb{width:64px;height:64px;border-radius:12px;object-fit:cover;background:#eee8dc;display:grid;place-items:center;color:#a99e88;font-size:1.4rem;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .nm{width:100%;border:1.5px solid transparent;background:transparent;border-radius:10px;padding:6px 8px;margin:-6px -8px 4px;font-weight:800;font-size:1rem}
+  .nm:hover,.nm:focus{border-color:var(--line);background:#fff;outline:none}
+  .line{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .price{display:flex;align-items:center;border:1.5px solid var(--line);background:#fff;border-radius:12px;overflow:hidden}
+  .price input{width:110px;border:0;padding:10px 12px;font-size:1.15rem;font-weight:800;outline:none;text-align:right}
+  .price span{padding:0 12px 0 0;font-weight:800;color:var(--muted)}
+  .price:focus-within{border-color:var(--blue-2)}
+  .sw{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.88rem;cursor:pointer;user-select:none}
+  .sw input{display:none}
+  .sw i{width:46px;height:28px;border-radius:999px;background:#cfc7b6;position:relative;transition:background .15s;flex:none}
+  .sw i:after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+  .sw input:checked+i{background:var(--green)}
+  .sw input:checked+i:after{left:21px}
+  .more-b{border:0;background:none;color:var(--blue-2);font-weight:800;font-size:.88rem;padding:8px 4px}
+  .more{display:none;margin-top:12px;padding:12px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+  .it.ext .more{display:block}
+  .more .row2{gap:10px}
+  .more label.f{margin-top:0}
+  .more .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .badge{display:inline-block;font-size:.72rem;font-weight:800;padding:3px 8px;border-radius:999px;background:var(--rose);color:#fff;margin-left:6px;vertical-align:middle}
+  .add-it{display:block;width:calc(100% - 32px);margin:12px 16px 16px;border:2px dashed var(--line);background:none;border-radius:14px;padding:12px;font-weight:800;color:var(--blue-2)}
+
+  /* save bar */
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--night);color:#fff;box-shadow:0 -8px 30px rgba(0,0,0,.25);padding:12px 0 calc(12px + env(safe-area-inset-bottom))}
+  .bar .wrap{display:flex;align-items:center;gap:10px}
+  .bar .txt{flex:1;font-weight:700;font-size:.92rem}
+  .bar .txt b{color:var(--gold-2)}
+  .bar .btn{padding:12px 16px}
+  @media(max-width:600px){
+    .top .wrap{gap:8px;min-height:58px}
+    .top .logo{width:34px;height:34px}.top .logo svg{width:20px;height:20px}
+    .top b{font-size:.88rem}.top small{font-size:.62rem}
+    .tbtn{padding:8px 10px;font-size:.78rem}
+    .tbtn .long{display:none}.tbtn .short{display:inline}
+    .bar .wrap{flex-wrap:wrap;gap:8px}
+    .bar .txt{flex-basis:100%}
+    .bar .btn{flex:1;padding:12px 10px;font-size:.95rem}
+    .bar #saveBtn{flex:2}
+    .cat-tools .in{min-width:100%}
+  }
+  .toast{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:50;background:var(--green);color:#fff;font-weight:800;padding:14px 20px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.25);max-width:calc(100% - 32px);text-align:center}
+  .toast.bad{background:var(--rose)}
+  .loading{padding:60px 0;text-align:center;color:var(--muted);font-weight:700}
+  .preview{margin-top:12px;background:var(--gold);color:var(--night);font-weight:800;border-radius:14px;padding:12px 14px}
+  .help{background:#eef2fb;border:1px solid #d5ddf1;border-radius:14px;padding:12px 14px;margin-top:16px;font-size:.9rem}
+  .help b{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ulzy" viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" d="M10 4h12v6h6v12h-6v6H10v-6H4V10h6zM10 10h12v12H10zM16 4v24M4 16h24"/></symbol></svg>
+
+<!-- ============ LOGIN ============ -->
+<section class="login" id="vLogin" hidden>
+  <form class="card" id="loginForm" autocomplete="on">
+    <div class="logo"><svg><use href="#ulzy"/></svg></div>
+    <h1>Управление сайтом</h1>
+    <p class="hint" style="margin-top:4px">Шэнэхэнские буузы — вход для владельца</p>
+    <label class="f" for="lLogin">Логин</label>
+    <input class="in" id="lLogin" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+    <label class="f" for="lPass">Пароль</label>
+    <div class="pw"><input class="in" id="lPass" type="password" autocomplete="current-password" required><button type="button" data-eye="lPass" aria-label="Показать пароль">👁</button></div>
+    <div class="err" id="lErr" hidden></div>
+    <button class="btn btn-gold btn-wide" style="margin-top:18px" id="lBtn">Войти</button>
+    <p class="hint" style="text-align:center;margin-top:14px"><a href="../" style="color:var(--blue-2);font-weight:700">← Вернуться на сайт</a> · <a href="help.html" style="color:var(--blue-2);font-weight:700">Памятка</a></p>
+  </form>
+</section>
+
+<!-- ============ SETUP (for the developer, admin/?setup) ============ -->
+<section class="login" id="vSetup" hidden>
+  <form class="card" id="setupForm" style="max-width:560px">
+    <div class="logo"><svg><use href="#ulzy"/></svg></div>
+    <h1>Первичная настройка</h1>
+    <p class="hint">Для разработчика. Делается один раз: связывает админку с хранилищем сайта на GitHub и задаёт логин и пароль владельца.</p>
+    <label class="f">Адрес API <small>(не менять)</small></label>
+    <input class="in" id="sApi" value="https://api.github.com" spellcheck="false">
+    <div class="row2">
+      <div><label class="f">Репозиторий <small>владелец/имя</small></label><input class="in" id="sRepo" placeholder="kom0kshell-prog/shenehen-buuzy" spellcheck="false" required></div>
+      <div><label class="f">Ветка</label><input class="in" id="sBranch" value="main" spellcheck="false" required></div>
+    </div>
+    <label class="f">Токен GitHub <small>(fine-grained, доступ Contents: Read and write только к этому репозиторию)</small></label>
+    <div class="pw"><input class="in" id="sToken" type="password" autocomplete="off" spellcheck="false" required><button type="button" data-eye="sToken" aria-label="Показать">👁</button></div>
+    <div class="row2">
+      <div><label class="f">Логин владельца</label><input class="in" id="sLogin" autocapitalize="none" spellcheck="false" required></div>
+      <div><label class="f">Пароль владельца <small>от 10 символов</small></label><div class="pw"><input class="in" id="sPass" type="password" autocomplete="new-password" required><button type="button" data-eye="sPass" aria-label="Показать">👁</button></div></div>
+    </div>
+    <div class="err" id="sErr" hidden></div>
+    <div class="ok" id="sOk" hidden></div>
+    <button class="btn btn-gold btn-wide" style="margin-top:18px" id="sBtn">Проверить и сохранить</button>
+  </form>
+</section>
+
+<!-- ============ APP ============ -->
+<div id="vApp" hidden>
+  <header class="top">
+    <div class="wrap">
+      <div class="logo"><svg><use href="#ulzy"/></svg></div>
+      <div><b>Шэнэхэнские буузы</b><small>управление сайтом</small></div>
+      <div class="sp"></div>
+      <a class="tbtn" href="help.html" target="_blank" rel="noopener">?<span class="long"> Помощь</span></a>
+      <a class="tbtn" href="../" target="_blank" rel="noopener"><span class="long">Открыть сайт</span><span class="short">Сайт</span> ↗</a>
+      <button class="tbtn" id="logout">Выйти</button>
+    </div>
+    <nav class="tabs">
+      <button class="tab on" data-tab="menu">🍲 Меню и цены</button>
+      <button class="tab" data-tab="settings">⚙️ Настройки кафе</button>
+      <button class="tab" data-tab="pass">🔑 Пароль</button>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="loading" id="loading">Загружаю меню…</div>
+
+    <!-- menu -->
+    <section id="tMenu" hidden>
+      <div class="help">Меняйте <b>цены и названия</b> прямо в полях. Выключите <b>«На сайте»</b>, если блюда временно нет. Когда закончите — нажмите <b>«Сохранить на сайте»</b> внизу.</div>
+      <div class="tools">
+        <input class="in" id="find" type="search" placeholder="🔍 Найти блюдо…">
+        <button class="sbtn" id="openAll">Раскрыть всё</button>
+      </div>
+      <p class="stat" id="stat"></p>
+      <div id="cats"></div>
+      <button class="add-it" id="addCat" style="width:100%;margin:16px 0 0">+ Новый раздел меню</button>
+    </section>
+
+    <!-- settings -->
+    <section id="tSettings" hidden>
+      <div class="card">
+        <h2>Контакты и режим работы</h2>
+        <div class="row2">
+          <div><label class="f">Телефон</label><input class="in" data-set="phone" inputmode="tel"></div>
+          <div><label class="f">Telegram <small>ссылка</small></label><input class="in" data-set="telegram" spellcheck="false"></div>
+        </div>
+        <div class="row2">
+          <div><label class="f">Открываемся</label><input class="in" data-set="open" type="time"></div>
+          <div><label class="f">Закрываемся</label><input class="in" data-set="close" type="time"></div>
+        </div>
+        <p class="hint">Время работы показывается на сайте, а значок «Открыто / Закрыто» считается по нему сам.</p>
+      </div>
+      <div class="card">
+        <h2>Ланч и средний чек</h2>
+        <div class="row2">
+          <div><label class="f">Ланч с</label><input class="in" data-set="lunchFrom" type="time"></div>
+          <div><label class="f">Ланч до</label><input class="in" data-set="lunchTo" type="time"></div>
+        </div>
+        <div class="row2">
+          <div><label class="f">Цена ланча от, ₽</label><input class="in" data-set="lunchPrice" inputmode="numeric"></div>
+          <div><label class="f">Средний чек, ₽</label><input class="in" data-set="avgCheck" inputmode="numeric"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Объявление на сайте</h2>
+        <p class="hint">Например: «Сегодня работаем до 18:00» или «Новинка — блины с лососем!». Показывается на первом экране и в меню.</p>
+        <label class="sw" style="margin-top:14px"><input type="checkbox" data-set="noticeOn"><i></i>Показывать объявление</label>
+        <label class="f">Текст объявления</label>
+        <textarea class="in" data-set="notice" maxlength="160"></textarea>
+        <div class="preview" id="noticePrev" hidden></div>
+      </div>
+    </section>
+
+    <!-- password -->
+    <section id="tPass" hidden>
+      <div class="card">
+        <h2>Сменить логин и пароль</h2>
+        <p class="hint">После смены входите с новыми данными. Запишите их — восстановить пароль нельзя, только задать заново через разработчика.</p>
+        <label class="f">Новый логин</label><input class="in" id="pLogin" autocapitalize="none" spellcheck="false" autocomplete="username">
+        <label class="f">Новый пароль <small>от 10 символов</small></label><div class="pw"><input class="in" id="pPass" type="password" autocomplete="new-password"><button type="button" data-eye="pPass" aria-label="Показать">👁</button></div>
+        <label class="f">Повторите пароль</label><input class="in" id="pPass2" type="password" autocomplete="new-password">
+        <div class="err" id="pErr" hidden></div><div class="ok" id="pOk" hidden></div>
+        <button class="btn btn-blue btn-wide" style="margin-top:16px" id="pBtn">Сменить пароль</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="bar" id="bar" hidden>
+    <div class="wrap">
+      <div class="txt" id="barTxt"></div>
+      <button class="btn btn-ghost" id="undo">Отменить</button>
+      <button class="btn btn-gold" id="saveBtn">Сохранить на сайте</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="file" accept="image/*" hidden>
+
+<script>
+(()=>{
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const enc=new TextEncoder(),dec=new TextDecoder();
+const b64=u8=>{let s='';for(let i=0;i<u8.length;i+=0x8000)s+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000));return btoa(s)};
+const unb64=s=>Uint8Array.from(atob(s.replace(/\s/g,'')),c=>c.charCodeAt(0));
+const ITER=310000;
+const SITE_PATH='data/site.json',CFG_PATH='admin/config.json';
+let CFG=null,DATA=null,ORIG='',SHA=null,PHOTOS={}; // PHOTOS: path -> {b64, url}
+const openCats=new Set();
+
+function toast(t,bad){const d=document.createElement('div');d.className='toast'+(bad?' bad':'');d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),bad?5000:3500)}
+function show(id){['vLogin','vSetup','vApp'].forEach(v=>$('#'+v).hidden=v!==id)}
+$$('[data-eye]').forEach(b=>b.onclick=()=>{const i=$('#'+b.dataset.eye);i.type=i.type==='password'?'text':'password'});
+
+/* ---------- crypto: config is encrypted with the owner's login+password ---------- */
+async function keyFrom(login,pass,salt){
+  const base=await crypto.subtle.importKey('raw',enc.encode(pass),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:cat(salt,enc.encode(login.trim().toLowerCase())),iterations:ITER,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+function cat(a,b){const o=new Uint8Array(a.length+b.length);o.set(a);o.set(b,a.length);return o}
+async function encryptCfg(cfg,login,pass){
+  const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+  const k=await keyFrom(login,pass,salt);
+  const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},k,enc.encode(JSON.stringify(cfg))));
+  return {v:1,iter:ITER,salt:b64(salt),iv:b64(iv),data:b64(ct)};
+}
+async function decryptCfg(box,login,pass){
+  const k=await keyFrom(login,pass,unb64(box.salt));
+  const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(box.iv)},k,unb64(box.data));
+  return JSON.parse(dec.decode(pt));
+}
+
+/* ---------- GitHub contents API ---------- */
+async function gh(path,opt={},cfg=CFG){
+  const r=await fetch(cfg.api.replace(/\/$/,'')+path,{...opt,headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+cfg.token,...(opt.body?{'Content-Type':'application/json'}:{})},cache:'no-store'});
+  let j=null;try{j=await r.json()}catch(e){}
+  if(!r.ok){const e=new Error((j&&j.message)||('HTTP '+r.status));e.status=r.status;throw e}
+  return j;
+}
+const contents=(p,cfg=CFG)=>`/repos/${cfg.repo}/contents/${p.split('/').map(encodeURIComponent).join('/')}`;
+async function getFile(p,cfg=CFG){try{return await gh(contents(p,cfg)+'?ref='+encodeURIComponent(cfg.branch)+'&t='+Date.now(),{},cfg)}catch(e){if(e.status===404)return null;throw e}}
+async function putFile(p,b64content,sha,msg,cfg=CFG){
+  return gh(contents(p,cfg),{method:'PUT',body:JSON.stringify({message:msg,content:b64content,branch:cfg.branch,...(sha?{sha}:{})})},cfg);
+}
+const errText=e=>e.status===401?'Ключ доступа к GitHub не работает (истёк или отозван). Напишите разработчику.':
+  e.status===403?'Нет прав на запись. Напишите разработчику.':
+  e.status===409||e.status===422?'Меню изменили в другом окне. Обновите страницу и повторите.':
+  !navigator.onLine?'Нет интернета. Проверьте связь и повторите.':'Не получилось: '+e.message;
+
+/* ---------- start ---------- */
+async function start(){
+  if(new URLSearchParams(location.search).has('setup')){show('vSetup');return}
+  try{const s=sessionStorage.getItem('buuzy-admin');if(s){CFG=JSON.parse(s);return openApp()}}catch(e){}
+  show('vLogin');setTimeout(()=>$('#lLogin').focus(),50);
+}
+$('#loginForm').onsubmit=async e=>{
+  e.preventDefault();const btn=$('#lBtn'),err=$('#lErr');err.hidden=true;btn.disabled=true;btn.textContent='Проверяю…';
+  try{
+    const r=await fetch('config.json?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw Object.assign(new Error('Админка ещё не настроена — обратитесь к разработчику.'),{plain:1});
+    const box=await r.json();
+    try{CFG=await decryptCfg(box,$('#lLogin').value,$('#lPass').value)}catch(x){throw Object.assign(new Error('Неверный логин или пароль.'),{plain:1})}
+    CFG.login=$('#lLogin').value.trim();
+    try{sessionStorage.setItem('buuzy-admin',JSON.stringify(CFG))}catch(x){}
+    $('#lPass').value='';openApp();
+  }catch(x){err.textContent=x.plain?x.message:'Ошибка соединения: '+x.message;err.hidden=false}
+  btn.disabled=false;btn.textContent='Войти';
+};
+$('#logout').onclick=()=>{if(dirty()&&!confirm('Есть несохранённые изменения. Всё равно выйти?'))return;try{sessionStorage.removeItem('buuzy-admin')}catch(e){}location.reload()};
+
+/* ---------- setup ---------- */
+$('#setupForm').onsubmit=async e=>{
+  e.preventDefault();const btn=$('#sBtn'),err=$('#sErr'),ok=$('#sOk');err.hidden=ok.hidden=true;
+  const cfg={api:$('#sApi').value.trim(),repo:$('#sRepo').value.trim().replace(/^https:\/\/github\.com\//,'').replace(/\/$/,''),branch:$('#sBranch').value.trim(),token:$('#sToken').value.trim()};
+  const login=$('#sLogin').value.trim(),pass=$('#sPass').value;
+  if(pass.length<10){err.textContent='Пароль должен быть не короче 10 символов.';err.hidden=false;return}
+  btn.disabled=true;btn.textContent='Проверяю доступ…';
+  try{
+    const repo=await gh('/repos/'+cfg.repo,{},cfg);
+    if(repo.permissions&&repo.permissions.push===false)throw new Error('У токена нет права записи в репозиторий.');
+    if(!(await getFile(SITE_PATH,cfg)))throw new Error('В репозитории нет файла '+SITE_PATH+'.');
+    btn.textContent='Шифрую и сохраняю…';
+    const box=await encryptCfg(cfg,login,pass);
+    const old=await getFile(CFG_PATH,cfg);
+    await putFile(CFG_PATH,b64(enc.encode(JSON.stringify(box,null,1))),old&&old.sha,'Настройка админки',cfg);
+    ok.innerHTML='Готово! Владелец входит на странице <b>'+esc(location.origin+location.pathname)+'</b> с логином <b>'+esc(login)+'</b>. Через 1–2 минуты вход заработает.';ok.hidden=false;$('#sToken').value='';$('#sPass').value='';
+  }catch(x){err.textContent=errText(x);err.hidden=false}
+  btn.disabled=false;btn.textContent='Проверить и сохранить';
+};
+
+/* ---------- app ---------- */
+async function openApp(){
+  show('vApp');$('#loading').hidden=false;$('#tMenu').hidden=true;
+  try{
+    const f=await getFile(SITE_PATH);if(!f)throw new Error('Файл меню не найден');
+    SHA=f.sha;DATA=JSON.parse(dec.decode(unb64(f.content)));ORIG=JSON.stringify(DATA);PHOTOS={};
+    $('#loading').hidden=true;tab('menu');renderCats();fillSettings();updBar();
+  }catch(e){
+    if(e.status===401){try{sessionStorage.removeItem('buuzy-admin')}catch(x){}}
+    $('#loading').textContent=errText(e);
+  }
+}
+function tab(t){$$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));$('#tMenu').hidden=t!=='menu';$('#tSettings').hidden=t!=='settings';$('#tPass').hidden=t!=='pass';scrollTo(0,0)}
+$$('.tab').forEach(b=>b.onclick=()=>{if(DATA)tab(b.dataset.tab)});
+
+const origItems=()=>{const m={};JSON.parse(ORIG).categories.forEach(c=>c.items.forEach(i=>m[i.id]={...i,cat:c.id}));return m};
+let ORIGMAP={};
+const dirty=()=>DATA&&JSON.stringify(DATA)!==ORIG;
+function changedCount(){
+  if(!DATA)return 0;ORIGMAP=origItems();let n=0;const seen=new Set();
+  DATA.categories.forEach(c=>c.items.forEach(i=>{seen.add(i.id);const o=ORIGMAP[i.id];if(!o||o.cat!==c.id||o.name!==i.name||o.price!==i.price||o.hidden!==i.hidden||o.badge!==i.badge||o.photo!==i.photo)n++}));
+  Object.keys(ORIGMAP).forEach(id=>{if(!seen.has(id))n++});
+  const o=JSON.parse(ORIG);if(JSON.stringify(o.settings)!==JSON.stringify(DATA.settings))n++;
+  if(JSON.stringify(o.categories.map(c=>[c.id,c.name]))!==JSON.stringify(DATA.categories.map(c=>[c.id,c.name])))n++;
+  return n;
+}
+function updBar(){const n=changedCount();$('#bar').hidden=!n;$('#barTxt').innerHTML='Изменено: <b>'+n+'</b>';
+  $$('.it').forEach(el=>{const i=findItem(el.dataset.id);const o=ORIGMAP[el.dataset.id];if(!i)return;const ch=!o||o.name!==i.it.name||o.price!==i.it.price||o.hidden!==i.it.hidden||o.badge!==i.it.badge||o.photo!==i.it.photo||o.cat!==i.cat.id;el.classList.toggle('changed',ch)});
+  stat()}
+addEventListener('beforeunload',e=>{if(dirty()){e.preventDefault();e.returnValue=''}});
+
+function findItem(id){for(const c of DATA.categories){const it=c.items.find(i=>i.id===id);if(it)return {cat:c,it}}return null}
+function photoURL(p){if(!p)return '';if(PHOTOS[p])return PHOTOS[p].url;return '../'+p}
+const BADGES=['Хит','Новинка','Фирменное','Острое','Детям нравится'];
+
+function itemHTML(c,i){
+  const thumb=i.photo?`<img src="${esc(photoURL(i.photo))}" alt="">`:'🍽';
+  return `<div class="it${i.hidden?' off':''}" data-id="${esc(i.id)}">
+    <div class="thumb">${thumb}</div>
+    <div>
+      <input class="nm" data-f="name" value="${esc(i.name)}" aria-label="Название блюда">
+      <div class="line">
+        <label class="price"><input data-f="price" inputmode="numeric" value="${i.price}" aria-label="Цена"><span>₽</span></label>
+        <label class="sw"><input type="checkbox" data-f="show" ${i.hidden?'':'checked'}><i></i>На сайте</label>
+        ${i.badge?`<span class="badge">${esc(i.badge)}</span>`:''}
+        <button class="more-b" data-a="more">Ещё ▾</button>
+      </div>
+      <div class="more">
+        <div class="row2">
+          <div><label class="f">Метка</label><input class="in" data-f="badge" list="badges" value="${esc(i.badge)}" placeholder="нет"></div>
+          <div><label class="f">Раздел</label><select class="in" data-f="cat">${DATA.categories.map(x=>`<option value="${esc(x.id)}"${x.id===c.id?' selected':''}>${esc(x.name)}</option>`).join('')}</select></div>
+        </div>
+        <div class="acts">
+          <button class="sbtn" data-a="photo">📷 ${i.photo?'Заменить фото':'Добавить фото'}</button>
+          ${i.photo?'<button class="sbtn" data-a="nophoto">Убрать фото</button>':''}
+          <button class="sbtn" data-a="up">↑</button><button class="sbtn" data-a="down">↓</button>
+          <button class="sbtn red" data-a="del">Удалить блюдо</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+function renderCats(){
+  const ext=new Set($$('.it.ext').map(e=>e.dataset.id));
+  $('#cats').innerHTML=DATA.categories.map(c=>`<div class="cat${openCats.has(c.id)?' open':''}" data-cat="${esc(c.id)}">
+    <div class="cat-h" data-a="toggle"><h2>${esc(c.name)}</h2><span class="cnt">${c.items.length} ${plural(c.items.length)}</span><span class="arr">›</span></div>
+    <div class="cat-b">
+      <div class="cat-tools"><input class="in" data-cf="name" value="${esc(c.name)}" aria-label="Название раздела"><button class="sbtn" data-a="cup">↑</button><button class="sbtn" data-a="cdown">↓</button><button class="sbtn red" data-a="cdel">Удалить раздел</button></div>
+      ${c.items.map(i=>itemHTML(c,i)).join('')}
+      <button class="add-it" data-a="add">+ Добавить блюдо в «${esc(c.name)}»</button>
+    </div></div>`).join('')+'<datalist id="badges">'+BADGES.map(b=>`<option value="${b}">`).join('')+'</datalist>';
+  ext.forEach(id=>{const el=$(`.it[data-id="${CSS.escape(id)}"]`);if(el)el.classList.add('ext')});
+  filter();updBar();
+}
+const plural=n=>{const m=n%100,k=n%10;return m>10&&m<20?'блюд':k===1?'блюдо':k>1&&k<5?'блюда':'блюд'};
+function stat(){if(!DATA)return;let all=0,hid=0;DATA.categories.forEach(c=>c.items.forEach(i=>{all++;if(i.hidden)hid++}));$('#stat').textContent=`Всего ${all} ${plural(all)} · на сайте ${all-hid}`+(hid?` · скрыто ${hid}`:'')}
+
+// typing: update data without re-rendering
+$('#cats').addEventListener('input',e=>{
+  const el=e.target,row=el.closest('.it');
+  if(el.dataset.cf==='name'){const c=DATA.categories.find(x=>x.id===el.closest('.cat').dataset.cat);c.name=el.value;$('h2',el.closest('.cat')).textContent=el.value||'Без названия';return updBar()}
+  if(!row)return;const {it}=findItem(row.dataset.id);
+  if(el.dataset.f==='name')it.name=el.value;
+  if(el.dataset.f==='price'){const v=el.value.replace(/\D/g,'');if(el.value!==v)el.value=v;it.price=v===''?0:Math.min(+v,9999999)}
+  if(el.dataset.f==='badge')it.badge=el.value.trim();
+  updBar();
+});
+$('#cats').addEventListener('change',e=>{
+  const el=e.target,row=el.closest('.it');if(!row)return;const f=findItem(row.dataset.id);
+  if(el.dataset.f==='show'){f.it.hidden=!el.checked;row.classList.toggle('off',f.it.hidden);updBar()}
+  if(el.dataset.f==='badge'){renderCats()}
+  if(el.dataset.f==='cat'&&el.value!==f.cat.id){f.cat.items.splice(f.cat.items.indexOf(f.it),1);DATA.categories.find(x=>x.id===el.value).items.push(f.it);openCats.add(el.value);renderCats();toast('Перенесено в «'+DATA.categories.find(x=>x.id===el.value).name+'»')}
+});
+$('#cats').addEventListener('click',e=>{
+  const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,catEl=b.closest('.cat'),c=catEl&&DATA.categories.find(x=>x.id===catEl.dataset.cat),row=b.closest('.it'),f=row&&findItem(row.dataset.id);
+  if(a==='toggle'){catEl.classList.toggle('open');catEl.classList.contains('open')?openCats.add(c.id):openCats.delete(c.id);return}
+  if(a==='more'){row.classList.toggle('ext');b.textContent=row.classList.contains('ext')?'Скрыть ▴':'Ещё ▾';return}
+  if(a==='del'){if(confirm('Удалить «'+f.it.name+'» из меню?')){f.cat.items.splice(f.cat.items.indexOf(f.it),1);renderCats()}return}
+  if(a==='up'||a==='down'){const arr=f.cat.items,i=arr.indexOf(f.it),j=a==='up'?i-1:i+1;if(j<0||j>=arr.length)return;[arr[i],arr[j]]=[arr[j],arr[i]];renderCats();return}
+  if(a==='photo'){pickPhoto(f.it);return}
+  if(a==='nophoto'){f.it.photo='';renderCats();return}
+  if(a==='add'){const id='d'+Date.now().toString(36);c.items.push({id,name:'Новое блюдо',price:0,photo:'',badge:'',hidden:false});renderCats();
+    const el=$(`.it[data-id="${id}"] .nm`);el.focus();el.select();return}
+  if(a==='cup'||a==='cdown'){const arr=DATA.categories,i=arr.indexOf(c),j=a==='cup'?i-1:i+1;if(j<0||j>=arr.length)return;[arr[i],arr[j]]=[arr[j],arr[i]];renderCats();return}
+  if(a==='cdel'){if(c.items.length){alert('Сначала перенесите или удалите блюда из этого раздела.');return}if(confirm('Удалить пустой раздел «'+c.name+'»?')){DATA.categories.splice(DATA.categories.indexOf(c),1);renderCats()}}
+});
+$('#addCat').onclick=()=>{const name=prompt('Название нового раздела, например «Напитки»');if(!name)return;const id='c'+Date.now().toString(36);DATA.categories.push({id,name:name.trim(),sub:'',items:[]});openCats.add(id);renderCats();$(`.cat[data-cat="${id}"]`).scrollIntoView({behavior:'smooth'})};
+$('#openAll').onclick=()=>{const all=$$('.cat').every(c=>c.classList.contains('open'));$$('.cat').forEach(c=>{c.classList.toggle('open',!all);!all?openCats.add(c.dataset.cat):openCats.delete(c.dataset.cat)});$('#openAll').textContent=all?'Раскрыть всё':'Свернуть всё'};
+function filter(){const v=$('#find').value.trim().toLowerCase().replace(/ё/g,'е');
+  $$('.cat').forEach(cat=>{let n=0;$$('.it',cat).forEach(r=>{const ok=!v||$('.nm',r).value.toLowerCase().replace(/ё/g,'е').includes(v);r.hidden=!ok;if(ok)n++});
+    cat.hidden=!!v&&!n;if(v&&n)cat.classList.add('open')})}
+$('#find').addEventListener('input',()=>{filter();if(!$('#find').value)$$('.cat').forEach(c=>c.classList.toggle('open',openCats.has(c.dataset.cat)))});
+
+// photo: resize in the browser, upload on save
+let photoFor=null;
+function pickPhoto(it){photoFor=it;$('#file').value='';$('#file').click()}
+$('#file').onchange=async()=>{const f=$('#file').files[0];if(!f||!photoFor)return;
+  try{const img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=()=>rej(new Error('Не удалось открыть фото'));i.src=URL.createObjectURL(f)});
+    const s=Math.min(1,1000/Math.max(img.width,img.height)),cv=document.createElement('canvas');cv.width=Math.round(img.width*s);cv.height=Math.round(img.height*s);
+    cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);const url=cv.toDataURL('image/jpeg',.82);
+    const path='img/menu/'+photoFor.id.replace(/[^a-z0-9_-]/gi,'')+'-'+Date.now().toString(36)+'.jpg';
+    PHOTOS[path]={b64:url.split(',')[1],url};photoFor.photo=path;renderCats();toast('Фото добавлено — не забудьте сохранить')}
+  catch(e){toast(e.message,true)}};
+
+/* ---------- settings ---------- */
+function fillSettings(){const s=DATA.settings;$$('[data-set]').forEach(el=>{const k=el.dataset.set;if(el.type==='checkbox')el.checked=!!s[k];else el.value=s[k]??''});notePrev()}
+$('#tSettings').addEventListener('input',e=>{const el=e.target,k=el.dataset.set;if(!k)return;const s=DATA.settings;
+  if(el.type==='checkbox')s[k]=el.checked;else if(k==='lunchPrice'||k==='avgCheck'){const v=el.value.replace(/\D/g,'');el.value=v;s[k]=+v||0}else s[k]=el.value;
+  notePrev();updBar()});
+$('#tSettings').addEventListener('change',e=>{if(e.target.type==='checkbox'){DATA.settings[e.target.dataset.set]=e.target.checked;notePrev();updBar()}});
+function notePrev(){const s=DATA.settings,p=$('#noticePrev');p.hidden=!(s.noticeOn&&s.notice);p.textContent='📣 '+(s.notice||'')}
+
+/* ---------- save ---------- */
+function validate(){
+  for(const c of DATA.categories){if(!c.name.trim())return 'У одного из разделов пустое название.';
+    for(const i of c.items){if(!i.name.trim())return 'У одного из блюд в разделе «'+c.name+'» пустое название.';
+      if(!(i.price>0)&&!i.hidden)return '«'+i.name+'»: укажите цену или выключите «На сайте».'}}
+  if(!/^[\d\s()+-]{6,}$/.test(DATA.settings.phone||''))return 'Проверьте номер телефона в настройках.';
+  return '';
+}
+$('#saveBtn').onclick=async()=>{
+  const v=validate();if(v){toast(v,true);return}
+  const btn=$('#saveBtn');btn.disabled=true;$('#undo').disabled=true;
+  try{
+    const used=new Set();DATA.categories.forEach(c=>c.items.forEach(i=>i.photo&&used.add(i.photo)));
+    const paths=Object.keys(PHOTOS).filter(p=>used.has(p));
+    for(let k=0;k<paths.length;k++){btn.textContent=`Загружаю фото ${k+1}/${paths.length}…`;await putFile(paths[k],PHOTOS[paths[k]].b64,null,'Фото блюда (админка)')}
+    btn.textContent='Сохраняю…';
+    DATA.updated=new Date().toISOString();
+    const r=await putFile(SITE_PATH,b64(enc.encode(JSON.stringify(DATA,null,1))),SHA,'Обновление меню (админка)');
+    SHA=r.content.sha;ORIG=JSON.stringify(DATA);PHOTOS={};renderCats();
+    toast('✅ Сохранено! На сайте изменения появятся через 1–2 минуты.');
+  }catch(e){toast(errText(e),true)}
+  btn.disabled=false;$('#undo').disabled=false;btn.textContent='Сохранить на сайте';updBar();
+};
+$('#undo').onclick=()=>{if(!confirm('Отменить все несохранённые изменения?'))return;DATA=JSON.parse(ORIG);PHOTOS={};renderCats();fillSettings();updBar();toast('Изменения отменены')};
+
+/* ---------- password ---------- */
+$('#pBtn').onclick=async()=>{
+  const err=$('#pErr'),ok=$('#pOk');err.hidden=ok.hidden=true;const login=$('#pLogin').value.trim()||CFG.login,p1=$('#pPass').value,p2=$('#pPass2').value;
+  if(p1.length<10){err.textContent='Пароль должен быть не короче 10 символов.';err.hidden=false;return}
+  if(p1!==p2){err.textContent='Пароли не совпадают.';err.hidden=false;return}
+  const btn=$('#pBtn');btn.disabled=true;btn.textContent='Сохраняю…';
+  try{const cfg={api:CFG.api,repo:CFG.repo,branch:CFG.branch,token:CFG.token};const box=await encryptCfg(cfg,login,p1);
+    const old=await getFile(CFG_PATH);await putFile(CFG_PATH,b64(enc.encode(JSON.stringify(box,null,1))),old&&old.sha,'Смена пароля (админка)');
+    CFG.login=login;try{sessionStorage.setItem('buuzy-admin',JSON.stringify(CFG))}catch(x){}
+    ok.textContent='Готово! Новый логин: '+login+'. Через 1–2 минуты он заработает.';ok.hidden=false;$('#pPass').value=$('#pPass2').value=''}
+  catch(e){err.textContent=errText(e);err.hidden=false}
+  btn.disabled=false;btn.textContent='Сменить пароль';
+};
+
+start();
+})();
+</script>
+</body>
+</html>

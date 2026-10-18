@@ -1,0 +1,120 @@
+{
+  "updated": "2026-10-18T09:00:00+08:00",
+  "settings": {
+    "phone": "+7 902 769-31-41",
+    "telegram": "https://t.me/+79027693141",
+    "open": "10:00",
+    "close": "22:00",
+    "lunchFrom": "12:00",
+    "lunchTo": "15:00",
+    "lunchPrice": 380,
+    "avgCheck": 700,
+    "noticeOn": false,
+    "notice": ""
+  },
+  "categories": [
+    {"id": "buuzy", "name": "Буузы и сеты", "sub": "Главное блюдо кафе — классические, «Малышки», рубленые и жареные", "items": [
+      {"id": "buuzy", "name": "Буузы классические", "price": 80, "photo": "img/m_buuzy.jpg", "badge": "Хит", "hidden": false},
+      {"id": "malyshki", "name": "Буузы «Малышки»", "price": 330, "photo": "img/m_malyshki.jpg", "badge": "Хит", "hidden": false},
+      {"id": "set_klass", "name": "Сет 1 классические буузы", "price": 320, "photo": "img/m_set_klass.jpg", "badge": "", "hidden": false},
+      {"id": "set_rubl", "name": "Сет 1 рубленые буузы", "price": 400, "photo": "img/m_set_rubl.jpg", "badge": "", "hidden": false},
+      {"id": "set_zhar", "name": "Сет 4 · буузы жареные (в сете 5 шт)", "price": 600, "photo": "img/m_set_zhar.jpg", "badge": "", "hidden": false},
+      {"id": "set_cheb", "name": "Сет «Чебуречный»", "price": 620, "photo": "img/m_set_cheb.jpg", "badge": "", "hidden": false}
+    ]},
+    {"id": "bur", "name": "Фирменное и бурятское", "sub": "Шулэн, бухлёр, хушууры и подача на компанию", "items": [
+      {"id": "metr", "name": "Шэнэхэнский метр", "price": 3000, "photo": "img/m_metr.jpg", "badge": "Фирменное", "hidden": false},
+      {"id": "khushuur", "name": "Хушууры мясные", "price": 300, "photo": "img/m_khushuur.jpg", "badge": "", "hidden": false},
+      {"id": "zharekha_bur", "name": "Жарёха по-бурятски", "price": 480, "photo": "img/m_zharekha_bur.jpg", "badge": "", "hidden": false},
+      {"id": "shulen", "name": "Шулэн", "price": 290, "photo": "", "badge": "", "hidden": false},
+      {"id": "buhler", "name": "Бухлёр", "price": 270, "photo": "", "badge": "", "hidden": false}
+    ]},
+    {"id": "snack", "name": "Закуски", "sub": "К пиву, чаю и для компании", "items": [
+      {"id": "tarelka", "name": "Тарелка «На компанию»", "price": 1000, "photo": "img/m_tarelka.jpg", "badge": "", "hidden": false},
+      {"id": "wings", "name": "Крылышки «Чили-терияки»", "price": 490, "photo": "img/m_wings.jpg", "badge": "", "hidden": false},
+      {"id": "kalmar", "name": "Кольца кальмара в кляре", "price": 400, "photo": "img/m_kalmar.jpg", "badge": "", "hidden": false},
+      {"id": "garlik", "name": "Гарлики чесночные", "price": 220, "photo": "img/m_garlik.jpg", "badge": "", "hidden": false},
+      {"id": "naggetsy", "name": "Наггетсы", "price": 250, "photo": "", "badge": "", "hidden": false}
+    ]},
+    {"id": "salad", "name": "Салаты", "sub": "Тёплые и классические", "items": [
+      {"id": "baklazhan", "name": "Тёплый салат с баклажаном", "price": 370, "photo": "img/m_baklazhan.jpg", "badge": "", "hidden": false},
+      {"id": "chef", "name": "Салат от Шефа", "price": 410, "photo": "img/m_chef.jpg", "badge": "", "hidden": false},
+      {"id": "funchoza", "name": "Тёплый салат с говядиной и фунчозой по-азиатски", "price": 380, "photo": "img/m_funchoza.jpg", "badge": "", "hidden": false},
+      {"id": "cezar", "name": "Цезарь", "price": 380, "photo": "img/m_cezar.jpg", "badge": "", "hidden": false},
+      {"id": "olivie", "name": "Оливье", "price": 360, "photo": "img/m_olivie.jpg", "badge": "", "hidden": false},
+      {"id": "s_kalmar", "name": "Салат с кальмаром", "price": 360, "photo": "img/m_s_kalmar.jpg", "badge": "", "hidden": false},
+      {"id": "ovoshi", "name": "Салат из свежих овощей с оливковым маслом", "price": 360, "photo": "img/m_ovoshi.jpg", "badge": "", "hidden": false},
+      {"id": "morkov", "name": "Морковь по-корейски", "price": 170, "photo": "img/m_morkov.jpg", "badge": "", "hidden": false},
+      {"id": "taezhnyy", "name": "Салат «Таёжный»", "price": 350, "photo": "", "badge": "", "hidden": false}
+    ]},
+    {"id": "soup", "name": "Супы", "sub": "Наваристые, по-домашнему", "items": [
+      {"id": "lapsha", "name": "Суп-лапша по-домашнему", "price": 300, "photo": "img/m_lapsha.jpg", "badge": "", "hidden": false},
+      {"id": "solyanka", "name": "Солянка по-домашнему", "price": 350, "photo": "img/m_solyanka.jpg", "badge": "", "hidden": false},
+      {"id": "krem", "name": "Крем-суп грибной с гренками", "price": 380, "photo": "img/m_krem.jpg", "badge": "", "hidden": false},
+      {"id": "uha", "name": "Сливочная уха из двух видов рыб", "price": 380, "photo": "img/m_uha.jpg", "badge": "", "hidden": false},
+      {"id": "frikadel", "name": "Суп с фрикадельками", "price": 320, "photo": "img/m_frikadel.jpg", "badge": "", "hidden": false}
+    ]},
+    {"id": "hot", "name": "Горячее", "sub": "Мясо, рыба, гарниры и завтраки", "items": [
+      {"id": "befstroganov", "name": "Бефстроганов в сливочном соусе с картофельным пюре", "price": 490, "photo": "img/m_befstroganov.jpg", "badge": "", "hidden": false},
+      {"id": "cordon", "name": "Кордон блю", "price": 510, "photo": "img/m_cordon.jpg", "badge": "", "hidden": false},
+      {"id": "teriyaki", "name": "Курица с овощами в соусе терияки", "price": 420, "photo": "img/m_teriyaki.jpg", "badge": "", "hidden": false},
+      {"id": "shampin", "name": "Шампиньоны в сливочном соусе", "price": 390, "photo": "img/m_shampin.jpg", "badge": "", "hidden": false},
+      {"id": "svinina_chili", "name": "Свинина в кляре в соусе сладкий чили", "price": 380, "photo": "img/m_svinina_chili.jpg", "badge": "", "hidden": false},
+      {"id": "mintai", "name": "Филе минтая в кляре", "price": 380, "photo": "img/m_mintai.jpg", "badge": "", "hidden": false},
+      {"id": "zharekha", "name": "Жарёха из свинины с картофелем", "price": 380, "photo": "img/m_zharekha.jpg", "badge": "", "hidden": false},
+      {"id": "pelmeni", "name": "Пельмени", "price": 330, "photo": "img/m_pelmeni.jpg", "badge": "", "hidden": false},
+      {"id": "draniki_b", "name": "Драники с беконом", "price": 340, "photo": "img/m_draniki_b.jpg", "badge": "", "hidden": false},
+      {"id": "draniki", "name": "Драники картофельные со сметаной", "price": 300, "photo": "img/m_draniki.jpg", "badge": "", "hidden": false},
+      {"id": "kart_grib", "name": "Жареный картофель с грибами", "price": 340, "photo": "img/m_kart_grib.jpg", "badge": "", "hidden": false},
+      {"id": "glazunya", "name": "Глазунья из 2 яиц с беконом и тостами", "price": 280, "photo": "img/m_glazunya.jpg", "badge": "", "hidden": false},
+      {"id": "syrniki", "name": "Сырники", "price": 260, "photo": "img/m_syrniki.jpg", "badge": "", "hidden": false},
+      {"id": "kasha_ris", "name": "Каша молочная рисовая", "price": 190, "photo": "img/m_kasha_ris.jpg", "badge": "", "hidden": false},
+      {"id": "kasha_ov", "name": "Каша молочная овсяная", "price": 190, "photo": "img/m_kasha_ov.jpg", "badge": "", "hidden": false},
+      {"id": "fri", "name": "Картофель фри", "price": 220, "photo": "img/m_fri.jpg", "badge": "", "hidden": false},
+      {"id": "pure", "name": "Картофельное пюре", "price": 220, "photo": "img/m_pure.jpg", "badge": "", "hidden": false},
+      {"id": "ris", "name": "Рис жареный с яйцом", "price": 200, "photo": "img/m_ris.jpg", "badge": "", "hidden": false},
+      {"id": "ovoshi_gril", "name": "Овощи на гриле", "price": 260, "photo": "", "badge": "", "hidden": false},
+      {"id": "kartofel_otvarnoy", "name": "Картофель домашний отварной с хрустящим луком криспи", "price": 240, "photo": "", "badge": "", "hidden": false},
+      {"id": "aydaho", "name": "Картофель «Айдахо»", "price": 220, "photo": "", "badge": "", "hidden": false},
+      {"id": "ovoshi_par", "name": "Овощи на пару", "price": 200, "photo": "", "badge": "", "hidden": false}
+    ]},
+    {"id": "bake", "name": "Чебуреки и выпечка", "sub": "Хрустящие чебуреки с разными начинками", "items": [
+      {"id": "chebureki", "name": "Чебуреки", "price": 280, "photo": "img/m_chebureki.jpg", "badge": "", "hidden": false},
+      {"id": "cheb_syr", "name": "Чебурек «Четыре сыра»", "price": 280, "photo": "img/m_cheb_syr.jpg", "badge": "", "hidden": false},
+      {"id": "cheburek_klass", "name": "Чебурек классический", "price": 280, "photo": "", "badge": "", "hidden": false},
+      {"id": "cheburek_klass_syr", "name": "Чебурек классический с сыром", "price": 280, "photo": "", "badge": "", "hidden": false},
+      {"id": "cheburek_vetchina", "name": "Чебурек с ветчиной и сыром", "price": 280, "photo": "", "badge": "", "hidden": false},
+      {"id": "cheburek_kurica", "name": "Чебурек с курицей, помидором и сыром", "price": 280, "photo": "", "badge": "", "hidden": false},
+      {"id": "cheburek_banan", "name": "Чебурек с бананом, брусникой и шоколадом", "price": 300, "photo": "", "badge": "", "hidden": false}
+    ]},
+    {"id": "blin", "name": "Блины", "sub": "Сладкие и сытные", "items": [
+      {"id": "blinchiki", "name": "Блинчики", "price": 200, "photo": "", "badge": "", "hidden": false},
+      {"id": "blinchiki_tvorog", "name": "Блинчики с творожной начинкой", "price": 300, "photo": "", "badge": "", "hidden": false},
+      {"id": "bliny_vetchina", "name": "Блины с ветчиной и сыром", "price": 320, "photo": "", "badge": "", "hidden": false},
+      {"id": "bliny_myaso", "name": "Блины с мясом", "price": 410, "photo": "", "badge": "", "hidden": false},
+      {"id": "bliny_losos", "name": "Блины с лососем и творожным сыром", "price": 450, "photo": "", "badge": "", "hidden": false}
+    ]},
+    {"id": "dessert", "name": "Десерты", "sub": "К чаю и кофе", "items": [
+      {"id": "puding", "name": "Пудинг «Танцующий котик»", "price": 300, "photo": "img/m_puding.jpg", "badge": "Детям нравится", "hidden": false},
+      {"id": "cheesecake", "name": "Чизкейк", "price": 280, "photo": "img/m_cheesecake.jpg", "badge": "", "hidden": false},
+      {"id": "banan", "name": "Банан в карамели", "price": 250, "photo": "img/m_banan.jpg", "badge": "", "hidden": false}
+    ]},
+    {"id": "drink", "name": "Напитки", "sub": "Кофе и чай — уточняйте у администратора", "items": [
+      {"id": "mors", "name": "Морс брусничный", "price": 290, "photo": "img/m_mors.jpg", "badge": "", "hidden": false}
+    ]},
+    {"id": "sauce", "name": "Соусы и добавки", "sub": "", "items": [
+      {"id": "sous_chesnok", "name": "Фирменный чесночный соус", "price": 50, "photo": "", "badge": "", "hidden": false},
+      {"id": "sous_syr", "name": "Фирменный сырный соус", "price": 50, "photo": "", "badge": "", "hidden": false},
+      {"id": "sous_grib", "name": "Фирменный грибной соус", "price": 50, "photo": "", "badge": "", "hidden": false},
+      {"id": "chili_ostryy", "name": "Чили острый", "price": 50, "photo": "", "badge": "", "hidden": false},
+      {"id": "ketchup", "name": "Кетчуп", "price": 50, "photo": "", "badge": "", "hidden": false},
+      {"id": "mayonez", "name": "Майонез", "price": 50, "photo": "", "badge": "", "hidden": false},
+      {"id": "dzhem", "name": "Джем", "price": 50, "photo": "", "badge": "", "hidden": false},
+      {"id": "sgushenka", "name": "Сгущённое молоко", "price": 50, "photo": "", "badge": "", "hidden": false},
+      {"id": "smetana", "name": "Сметана", "price": 45, "photo": "", "badge": "", "hidden": false}
+    ]},
+    {"id": "home", "name": "Заморозка домой", "sub": "Приготовите дома, когда захочется", "items": [
+      {"id": "buuzy_zam", "name": "Буузы замороженные", "price": 80, "photo": "img/m_buuzy_zam.jpg", "badge": "", "hidden": false},
+      {"id": "pelmeni_zam", "name": "Пельмени замороженные", "price": 700, "photo": "", "badge": "", "hidden": false}
+    ]}
+  ]
+}
