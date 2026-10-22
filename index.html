@@ -901,7 +901,10 @@
     b.textContent=isOpen?'Открыто до '+s.close:'Сейчас закрыто · откроемся в '+s.open;b.classList.toggle('closed',!isOpen);
   }
   function applyPrices(){
-    $$('[data-p]').forEach(el=>{const it=ITEMS[el.dataset.p];if(it)el.textContent=rub(it.price)});
+    // a deleted or hidden dish hides its whole price tag, never shows a stale hard-coded price
+    const box=el=>el.closest('.pr,li,.tag-price')||el; // one tag may hold several prices, so hide in a second pass
+    $$('[data-p]').forEach(el=>{const it=ITEMS[el.dataset.p];box(el).hidden=false;if(it)el.textContent=rub(it.price)});
+    $$('[data-p]').forEach(el=>{const it=ITEMS[el.dataset.p];if(!it||it.hidden)box(el).hidden=true});
     $$('[data-item]').forEach(el=>{const it=ITEMS[el.dataset.item];el.hidden=!it||!!it.hidden});
   }
 
