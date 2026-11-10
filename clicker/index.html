@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Жук-лимитоед — кликер</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #1b1410; color: #f4e9dc; font: 16px/1.4 "Courier New", monospace; }
+  main { display: flex; flex-wrap: wrap; min-height: 100vh; }
+  #stage { flex: 1 1 320px; padding: 16px; text-align: center; user-select: none; }
+  #shop { flex: 1 1 320px; max-width: 460px; padding: 16px; background: #2a1f18; border-left: 4px solid #d97757; }
+  h1, h2 { margin: 0 0 8px; text-transform: uppercase; letter-spacing: 2px; color: #d97757; }
+  #count { font-size: 28px; font-weight: bold; margin: 8px 0 0; }
+  #lps { margin: 0 0 16px; opacity: .7; }
+  img { image-rendering: pixelated; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  #bug { background: none; border: 0; padding: 0; touch-action: manipulation; }
+  #bug img { width: min(256px, 70vw); transition: transform .06s; }
+  #bug:active img { transform: scale(.92); }
+  #news { min-height: 3em; margin: 16px auto; max-width: 30em; padding: 8px; border: 2px dashed #6b4a38; }
+  .item { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 8px; padding: 8px;
+          text-align: left; background: #3a2a20; border: 3px solid #d97757; box-shadow: 4px 4px 0 #000; }
+  .item:disabled { opacity: .45; cursor: not-allowed; }
+  .item:not(:disabled):active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+  .item img { width: 48px; flex: none; }
+  .item b { display: block; }
+  .item small { opacity: .8; }
+  .item .own { margin-left: auto; font-size: 24px; font-weight: bold; }
+  #reset { margin-top: 8px; background: none; border: 0; opacity: .5; text-decoration: underline; }
+  .pop { position: fixed; pointer-events: none; font-weight: bold; color: #ffd27a; animation: pop .8s ease-out forwards; }
+  @keyframes pop { to { transform: translateY(-70px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .pop { animation-duration: .01s; } }
+</style>
+<main>
+  <section id="stage">
+    <h1>Жук-лимитоед</h1>
+    <p id="count"></p>
+    <p id="lps"></p>
+    <button id="bug" aria-label="Скормить жуку лимит"><img id="bugimg" alt=""></button>
+    <p id="news"></p>
+  </section>
+  <section id="shop">
+    <h2>Рой</h2>
+    <div id="items"></div>
+    <button id="reset">сбросить прогресс</button>
+  </section>
+</main>
+<script>
+// --- пиксельные спрайты: o рыжий, d тёмно-рыжий, k чёрный, w белый ---
+const PAL = { o: '#d97757', d: '#a8502f', k: '#1a1a1a', w: '#ffffff' };
+const TOP = [
+  '..k..........k..',
+  '...k........k...',
+  '....oooooooo....',
+  '...oooooooooo...',
+  '..oooooooooooo..',
+  '..ookkooookkoo..',
+  '..ookkooookkoo..',
+  'dooooooooooooood',
+];
+const LEGS = ['..oooooooooooo..', '..d.d.d..d.d.d..', '..d.d.d..d.d.d..'];
+const SHUT = [...TOP, '.oooooooooooooo.', 'dooookkkkkkooood', '.oooooooooooooo.', ...LEGS];
+const OPEN = [...TOP, '.oookwkwkwkkooo.', 'doookkkkkkkkoood', '.oookkwkwkwkooo.', ...LEGS];
+function sprite(rows) {
+  console.assert(rows.every(r => r.length === 16), 'кривой спрайт');
+  const c = document.createElement('canvas');
+  c.width = 16; c.height = rows.length;
+  const g = c.getContext('2d');
+  rows.forEach((r, y) => [...r].forEach((ch, x) => { if (PAL[ch]) { g.fillStyle = PAL[ch]; g.fillRect(x, y, 1, 1); } }));
+  return c.toDataURL();
+}
+const IMG_SHUT = sprite(SHUT), IMG_OPEN = sprite(OPEN);
+
+// --- магазин: первый пункт усиливает клик, остальные едят сами ---
+const ITEMS = [
+  { name: 'Острые жвалы',      desc: 'клик ×2',                 cost: 50,    grow: 4,    lps: 0,    hue: 0 },
+  { name: 'Личинка',           desc: 'грызёт по чуть-чуть',     cost: 15,    grow: 1.15, lps: 0.1,  hue: 60 },
+  { name: 'Жук-стажёр',        desc: '«ещё один промпт»',       cost: 100,   grow: 1.15, lps: 1,    hue: 110 },
+  { name: 'Жук-вайбкодер',     desc: 'не читает дифф',          cost: 1100,  grow: 1.15, lps: 8,    hue: 170 },
+  { name: 'Жук-агент',         desc: 'работает, пока ты спишь', cost: 12000, grow: 1.15, lps: 47,   hue: 230 },
+  { name: 'Рой субагентов',    desc: 'каждый зовёт ещё троих',  cost: 130000, grow: 1.15, lps: 260, hue: 280 },
+  { name: 'Жук-дата-центр',    desc: 'ест недельный лимит за секунду', cost: 1400000, grow: 1.15, lps: 1400, hue: 320 },
+];
+const NEWS = [
+  'Лимит исчерпан. Попробуйте через 5 часов.',
+  'Жук съел твой недельный лимит. Он не раскаивается.',
+  '«Ты абсолютно прав!» — сказал жук и съел ещё.',
+  'Сжимаю контекст… хрум-хрум.',
+  'Учёные: лимиты не исчезают, они переходят в жука.',
+  '«Ещё один маленький промпт» — последние слова лимита.',
+  'Жук посмотрел на твой тариф и облизнулся.',
+];
+
+// --- состояние ---
+const KEY = 'limitoed-save';
+let s = { n: 0, own: ITEMS.map(() => 0) };
+try {
+  const saved = JSON.parse(localStorage.getItem(KEY));
+  if (saved && Number.isFinite(saved.n) && Array.isArray(saved.own))
+    s = { n: saved.n, own: ITEMS.map((_, i) => saved.own[i] | 0) };
+} catch {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {} };
+
+const price = i => Math.ceil(ITEMS[i].cost * ITEMS[i].grow ** s.own[i]);
+const perClick = () => 2 ** s.own[0];
+const perSec = () => ITEMS.reduce((sum, it, i) => sum + it.lps * s.own[i], 0);
+const fmt = x => x < 1000 ? String(Math.floor(x * 10) / 10) : new Intl.NumberFormat('ru', { notation: 'compact', maximumFractionDigits: 2 }).format(x);
+
+// --- интерфейс ---
+const $ = id => document.getElementById(id);
+const bugImg = $('bugimg');
+bugImg.src = IMG_SHUT;
+const rows = ITEMS.map((it, i) => {
+  const b = document.createElement('button');
+  b.className = 'item';
+  b.innerHTML = `<img alt="" src="${IMG_SHUT}" style="filter:hue-rotate(${it.hue}deg)">
+    <span><b>${it.name}</b><small>${it.desc}${it.lps ? ` · +${it.lps}/с` : ''}<br>цена: <span class="p"></span></small></span>
+    <span class="own"></span>`;
+  b.onclick = () => { const p = price(i); if (s.n >= p) { s.n -= p; s.own[i]++; draw(); save(); } };
+  $('items').append(b);
+  return b;
+});
+function draw() {
+  $('count').textContent = fmt(s.n) + ' лимитов съедено';
+  $('lps').textContent = `${fmt(perSec())} в секунду · ${fmt(perClick())} за клик`;
+  rows.forEach((b, i) => {
+    b.disabled = s.n < price(i);
+    b.querySelector('.p').textContent = fmt(price(i));
+    b.querySelector('.own').textContent = s.own[i];
+  });
+}
+$('bug').onclick = e => {
+  s.n += perClick();
+  bugImg.src = IMG_OPEN;
+  setTimeout(() => bugImg.src = IMG_SHUT, 120);
+  const r = bugImg.getBoundingClientRect(); // клик с клавиатуры приходит без координат
+  const pop = document.createElement('span');
+  pop.className = 'pop';
+  pop.textContent = '+' + fmt(perClick());
+  pop.style.left = (e.clientX || r.left + r.width / 2) + 'px';
+  pop.style.top = (e.clientY || r.top) + 'px';
+  pop.onanimationend = () => pop.remove();
+  document.body.append(pop);
+  draw();
+};
+$('reset').onclick = () => {
+  if (confirm('Точно сбросить весь прогресс?')) { s = { n: 0, own: ITEMS.map(() => 0) }; save(); draw(); }
+};
+const news = () => $('news').textContent = NEWS[Math.floor(Math.random() * NEWS.length)];
+news(); setInterval(news, 8000);
+
+let last = Date.now();
+setInterval(() => { // по реальному времени: фоновые вкладки тормозят таймеры
+  const now = Date.now();
+  s.n += perSec() * (now - last) / 1000;
+  last = now;
+  draw();
+}, 100);
+setInterval(save, 5000);
+addEventListener('pagehide', save);
+draw();
+</script>
+</html>
