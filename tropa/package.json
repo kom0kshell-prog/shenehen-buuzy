@@ -1,0 +1,12 @@
+{
+  "name": "tropa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Тропа — соцсеть туристических маршрутов",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node server.js",
+    "demo": "node server.js --seed",
+    "test": "node --test test.js"
+  }
+}

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Тропа — рекламный ролик (1080×1920, 32 с)</title>
+<style>
+  /* Все анимации — CSS с абсолютными задержками, поэтому render.js может выставить любой момент времени. */
+  * { box-sizing: border-box; margin: 0; }
+  html { background: #0d1f16; }
+  body { width: 1080px; height: 1920px; overflow: hidden; position: relative; transform-origin: 0 0;
+    font-family: Inter, system-ui, sans-serif; color: #fff; background: #14432d; }
+  .s { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 90px; text-align: center; animation: scene var(--d) linear var(--t) both; }
+  @keyframes scene { 0% { opacity: 0 } 7% { opacity: 1 } 93% { opacity: 1 } 100% { opacity: 0 } }
+  .up { animation: up .8s cubic-bezier(.2,.8,.2,1) var(--t) both; }
+  @keyframes up { from { opacity: 0; transform: translateY(60px) } to { opacity: 1; transform: none } }
+  .pop { animation: pop .6s cubic-bezier(.3,1.6,.5,1) var(--t) both; }
+  @keyframes pop { from { opacity: 0; transform: scale(.3) } to { opacity: 1; transform: none } }
+
+  h1 { font-size: 104px; line-height: 1.05; font-weight: 800; letter-spacing: -.03em; text-wrap: balance; }
+  h2 { font-size: 76px; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; text-wrap: balance; }
+  p { font-size: 46px; line-height: 1.3; opacity: .88; text-wrap: balance; }
+  .o { color: #ff9a57; }
+  .dark { background: #0d1f16; }
+  .cream { background: #f4f1ea; color: #1d2a22; }
+  .cream .o { color: #e8732c; }
+  .gap { height: 56px; }
+
+  .mess { font-size: 62px; font-weight: 700; padding: 30px 44px; border-radius: 28px; background: rgba(255,255,255,.08); margin: 14px 0; width: 100%; text-align: left; }
+  .mess small { display: block; font-size: 36px; font-weight: 500; opacity: .6; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 44px; }
+  .chips span { font-size: 38px; font-weight: 600; padding: 14px 30px; border-radius: 99px; background: rgba(255,255,255,.14); }
+
+  .phone { width: 560px; height: 1212px; border: 14px solid #101512; border-radius: 64px; overflow: hidden; background: #fff;
+    box-shadow: 0 40px 90px rgba(0,0,0,.35); flex: none; }
+  .phone img { width: 100%; display: block; }
+  .withphone { justify-content: flex-start; padding-top: 110px; }
+  .withphone h2 { margin-bottom: 50px; min-height: 250px; display: grid; place-items: center; }
+
+  .tag { position: absolute; font-size: 38px; font-weight: 700; padding: 16px 28px; border-radius: 22px; background: #e8732c; color: #fff; box-shadow: 0 12px 30px rgba(0,0,0,.3); }
+
+  .benefit { display: flex; gap: 30px; align-items: center; text-align: left; width: 100%; margin: 26px 0; }
+  .benefit i { flex: none; width: 104px; height: 104px; border-radius: 30px; background: #e8732c; display: grid; place-items: center; font-style: normal; font-size: 56px; font-weight: 800; }
+  .benefit b { font-size: 54px; line-height: 1.12; display: block; }
+  .benefit span { font-size: 36px; opacity: .78; }
+
+  .logo { display: flex; align-items: center; gap: 26px; font-size: 150px; font-weight: 800; letter-spacing: -.03em; }
+  .draw { stroke-dasharray: 1; animation: draw 3.2s ease-in-out var(--t) both; }
+  @keyframes draw { from { stroke-dashoffset: 1 } to { stroke-dashoffset: 0 } }
+  .walker { offset-path: path("M90 760 C 220 700 260 600 380 590 S 520 480 640 430 S 820 330 960 150"); animation: walk 3.2s ease-in-out var(--t) both; }
+  @keyframes walk { from { offset-distance: 0% } to { offset-distance: 100% } }
+</style>
+</head>
+<body>
+
+<!-- 1. Крючок -->
+<section class="s dark" style="--t:0s;--d:3.6s">
+  <h1 class="up" style="--t:.2s">Собираетесь<br>в поход?</h1>
+  <div class="gap"></div>
+  <h2 class="up o" style="--t:1.4s">Этот маршрут уже кто-то прошёл.</h2>
+</section>
+
+<!-- 2. Боль -->
+<section class="s dark" style="--t:3.6s;--d:4.6s">
+  <div class="mess up" style="--t:3.9s">Треки<small>остаются в часах</small></div>
+  <div class="mess up" style="--t:4.5s">Советы<small>тонут в чатах</small></div>
+  <div class="mess up" style="--t:5.1s">Фото<small>теряются в галерее</small></div>
+  <div class="gap"></div>
+  <h2 class="up" style="--t:6.1s">А на тропе — <span class="o">снова вслепую.</span></h2>
+</section>
+
+<!-- 3. Решение: трек -->
+<section class="s" style="--t:8.2s;--d:5.2s;justify-content:flex-start;padding-top:130px">
+  <div class="logo up" style="--t:8.4s;font-size:96px">
+    <svg viewBox="0 0 32 32" width="100" height="100"><path d="M3 27 12 9l5 9 3-5 9 14z" fill="#fff"/></svg>Тропа
+  </div>
+  <div class="gap"></div>
+  <h2 class="up" style="--t:8.8s">Включили трекер —<br>и просто идите</h2>
+  <svg viewBox="0 0 1080 860" width="1080" height="860" style="margin:30px -90px 0">
+    <path d="M0 520 220 250l150 190 170-300 200 310 140-170 200 240v340H0z" fill="#1f5c3f"/>
+    <path d="M0 640 260 430l190 170 210-250 230 260 190-140v390H0z" fill="#2c7a54"/>
+    <path d="M540 140 500 215l40-22 44 30z" fill="#fff" opacity=".9"/>
+    <path class="draw" style="--t:9.6s" pathLength="1" d="M90 760 C 220 700 260 600 380 590 S 520 480 640 430 S 820 330 960 150" fill="none" stroke="#ff9a57" stroke-width="12" stroke-linecap="round"/>
+    <circle class="walker" style="--t:9.6s" r="22" fill="#fff" stroke="#e8732c" stroke-width="10"/>
+  </svg>
+  <p class="up" style="--t:10.6s">Трек с часов или телефона превращается в маршрут: дистанция, время, набор высоты.</p>
+  <div class="chips up" style="--t:11.2s"><span>Apple Watch</span><span>Garmin</span><span>Strava</span><span>Google Карты</span></div>
+</section>
+
+<!-- 4. Пометки -->
+<section class="s cream withphone" style="--t:13.4s;--d:4.6s">
+  <h2 class="up" style="--t:13.6s">Отмечайте важное <span class="o">прямо на карте</span></h2>
+  <div class="phone up" style="--t:13.9s"><img src="shots/s-route.png" alt=""></div>
+  <div class="tag pop" style="--t:15.0s;left:70px;top:1130px">💧 Родник</div>
+  <div class="tag pop" style="--t:15.5s;right:60px;top:980px">⛺ Стоянка</div>
+  <div class="tag pop" style="--t:16.0s;left:110px;top:1420px;background:#b3261e">⚠ Скользко</div>
+</section>
+
+<!-- 5. Отзывы -->
+<section class="s cream withphone" style="--t:18s;--d:4.6s">
+  <h2 class="up" style="--t:18.2s">Выбирайте маршрут <span class="o">по отзывам тех, кто там был</span></h2>
+  <div class="phone up" style="--t:18.5s"><img src="shots/s-reviews.png" alt=""></div>
+</section>
+
+<!-- 6. Стена и маршруты -->
+<section class="s cream withphone" style="--t:22.6s;--d:4.2s">
+  <h2 class="up" style="--t:22.8s">Ваша стена и <span class="o">коллекция маршрутов</span></h2>
+  <div class="phone up" style="--t:23.1s"><img src="shots/s-profile.png" alt=""></div>
+  <div class="tag pop" style="--t:24.6s;right:70px;top:1500px">Поделиться ссылкой ↗</div>
+</section>
+
+<!-- 7. Выгода -->
+<section class="s" style="--t:26.8s;--d:5s">
+  <h2 class="up" style="--t:27s">Что получает турист</h2>
+  <div class="gap"></div>
+  <div class="benefit up" style="--t:27.5s"><i>1</i><div><b>Меньше сюрпризов</b><span>вода, стоянки и опасные участки известны заранее</span></div></div>
+  <div class="benefit up" style="--t:28.1s"><i>2</i><div><b>План за минуты</b><span>готовый трек можно скачать и идти по нему</span></div></div>
+  <div class="benefit up" style="--t:28.7s"><i>3</i><div><b>Все походы в одном месте</b><span>километры, высоты, фото и истории</span></div></div>
+  <div class="benefit up" style="--t:29.3s"><i>4</i><div><b>Свои среди своих</b><span>советы от тех, кто реально прошёл</span></div></div>
+</section>
+
+<!-- 8. Призыв -->
+<section class="s dark" style="--t:31.8s;--d:4.4s;animation-name:last">
+  <div class="logo pop" style="--t:32s">
+    <svg viewBox="0 0 32 32" width="170" height="170"><path d="M3 27 12 9l5 9 3-5 9 14z" fill="#fff"/><path d="M6 29c5-4 9 2 13-2s6-1 8-3" fill="none" stroke="#e8732c" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 4.5"/></svg>Тропа
+  </div>
+  <div class="gap"></div>
+  <h2 class="up" style="--t:32.7s">Пройди. <span class="o">Отметь.</span> Поделись.</h2>
+  <div class="gap"></div>
+  <p class="up" style="--t:33.5s">Соцсеть туристических маршрутов</p>
+</section>
+<style>@keyframes last { 0% { opacity: 0 } 7%, 100% { opacity: 1 } }</style>
+
+<script>
+  // При просмотре в браузере вписываем кадр 1080×1920 в окно; render.js ставит ?capture и снимает 1:1.
+  if (!location.search.includes('capture')) {
+    const fit = () => (document.body.style.transform = `scale(${Math.min(innerWidth / 1080, innerHeight / 1920)})`);
+    addEventListener('resize', fit); fit();
+  }
+</script>
+</body>
+</html>
