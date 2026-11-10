@@ -2,137 +2,165 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>Тропа — рекламный ролик (1080×1920, 32 с)</title>
+<title>Тропа — рекламный ролик (1080×1920, 40 с)</title>
 <style>
-  /* Все анимации — CSS с абсолютными задержками, поэтому render.js может выставить любой момент времени. */
+  /* Все движения — CSS-анимации с абсолютными задержками (--t), поэтому render.js может выставить любой момент времени.
+     Пейзажи рисует тот же public/scene.js, что и на сайте. */
+  @font-face { font-family: "Cormorant Garamond"; font-weight: 500; src: url("../public/vendor/fonts/cormorant-garamond-cyrillic-500-normal.woff2"); unicode-range: U+0400-045F; }
+  @font-face { font-family: "Cormorant Garamond"; font-weight: 500; src: url("../public/vendor/fonts/cormorant-garamond-latin-500-normal.woff2"); unicode-range: U+0000-00FF, U+2013-2014; }
+  @font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; src: url("../public/vendor/fonts/cormorant-garamond-cyrillic-500-italic.woff2"); unicode-range: U+0400-045F; }
+  @font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; src: url("../public/vendor/fonts/cormorant-garamond-latin-500-italic.woff2"); unicode-range: U+0000-00FF, U+2013-2014; }
+  @font-face { font-family: Manrope; font-weight: 200 800; src: url("../public/vendor/fonts/manrope-cyrillic-wght-normal.woff2"); unicode-range: U+0400-045F; }
+  @font-face { font-family: Manrope; font-weight: 200 800; src: url("../public/vendor/fonts/manrope-latin-wght-normal.woff2"); unicode-range: U+0000-00FF, U+2013-2014; }
   * { box-sizing: border-box; margin: 0; }
-  html { background: #0d1f16; }
-  body { width: 1080px; height: 1920px; overflow: hidden; position: relative; transform-origin: 0 0;
-    font-family: Inter, system-ui, sans-serif; color: #fff; background: #14432d; }
-  .s { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 90px; text-align: center; animation: scene var(--d) linear var(--t) both; }
-  @keyframes scene { 0% { opacity: 0 } 7% { opacity: 1 } 93% { opacity: 1 } 100% { opacity: 0 } }
-  .up { animation: up .8s cubic-bezier(.2,.8,.2,1) var(--t) both; }
-  @keyframes up { from { opacity: 0; transform: translateY(60px) } to { opacity: 1; transform: none } }
-  .pop { animation: pop .6s cubic-bezier(.3,1.6,.5,1) var(--t) both; }
-  @keyframes pop { from { opacity: 0; transform: scale(.3) } to { opacity: 1; transform: none } }
+  html { background: #0e1822; }
+  body { width: 1080px; height: 1920px; overflow: hidden; position: relative; transform-origin: 0 0; background: #0e1822; color: #fff; font-family: Manrope, sans-serif; }
 
-  h1 { font-size: 104px; line-height: 1.05; font-weight: 800; letter-spacing: -.03em; text-wrap: balance; }
-  h2 { font-size: 76px; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; text-wrap: balance; }
-  p { font-size: 46px; line-height: 1.3; opacity: .88; text-wrap: balance; }
-  .o { color: #ff9a57; }
-  .dark { background: #0d1f16; }
-  .cream { background: #f4f1ea; color: #1d2a22; }
-  .cream .o { color: #e8732c; }
-  .gap { height: 56px; }
+  .s { position: absolute; inset: 0; overflow: hidden; animation: scene var(--d) linear var(--t) both; }
+  @keyframes scene { 0% { opacity: 0 } 6% { opacity: 1 } 94% { opacity: 1 } 100% { opacity: 0 } }
+  .s.last { animation-name: last; }
+  @keyframes last { 0% { opacity: 0 } 6%, 100% { opacity: 1 } }
 
-  .mess { font-size: 62px; font-weight: 700; padding: 30px 44px; border-radius: 28px; background: rgba(255,255,255,.08); margin: 14px 0; width: 100%; text-align: left; }
-  .mess small { display: block; font-size: 36px; font-weight: 500; opacity: .6; }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 44px; }
-  .chips span { font-size: 38px; font-weight: 600; padding: 14px 30px; border-radius: 99px; background: rgba(255,255,255,.14); }
-
-  .phone { width: 560px; height: 1212px; border: 14px solid #101512; border-radius: 64px; overflow: hidden; background: #fff;
-    box-shadow: 0 40px 90px rgba(0,0,0,.35); flex: none; }
-  .phone img { width: 100%; display: block; }
-  .withphone { justify-content: flex-start; padding-top: 110px; }
-  .withphone h2 { margin-bottom: 50px; min-height: 250px; display: grid; place-items: center; }
-
-  .tag { position: absolute; font-size: 38px; font-weight: 700; padding: 16px 28px; border-radius: 22px; background: #e8732c; color: #fff; box-shadow: 0 12px 30px rgba(0,0,0,.3); }
-
-  .benefit { display: flex; gap: 30px; align-items: center; text-align: left; width: 100%; margin: 26px 0; }
-  .benefit i { flex: none; width: 104px; height: 104px; border-radius: 30px; background: #e8732c; display: grid; place-items: center; font-style: normal; font-size: 56px; font-weight: 800; }
-  .benefit b { font-size: 54px; line-height: 1.12; display: block; }
-  .benefit span { font-size: 36px; opacity: .78; }
-
-  .logo { display: flex; align-items: center; gap: 26px; font-size: 150px; font-weight: 800; letter-spacing: -.03em; }
-  .draw { stroke-dasharray: 1; animation: draw 3.2s ease-in-out var(--t) both; }
+  /* пейзаж: медленный наезд камеры + слои едут с разной скоростью */
+  .bg { position: absolute; inset: 0; animation: push var(--d) linear var(--t) both; transform-origin: 50% 80%; }
+  @keyframes push { from { transform: scale(1.04) } to { transform: scale(1.2) } }
+  .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .scene .ly { animation: pan var(--d) linear var(--t) both; }
+  @keyframes pan { from { transform: translateX(calc(var(--z) * 80px)) } to { transform: translateX(calc(var(--z) * -80px)) } }
+  .scene .mist { animation: mist var(--d) linear var(--t) both; }
+  @keyframes mist { from { transform: translateX(-160px) } to { transform: translateX(180px) } }
+  .scene .sun { animation: sun var(--d) cubic-bezier(.2, .7, .3, 1) var(--t) both; }
+  @keyframes sun { from { transform: translateY(260px) } to { transform: none } }
+  .scene .trail { stroke-dasharray: 1; stroke-width: 7; animation: draw 3s ease-in-out calc(var(--t) + .9s) both; }
   @keyframes draw { from { stroke-dashoffset: 1 } to { stroke-dashoffset: 0 } }
-  .walker { offset-path: path("M90 760 C 220 700 260 600 380 590 S 520 480 640 430 S 820 330 960 150"); animation: walk 3.2s ease-in-out var(--t) both; }
-  @keyframes walk { from { offset-distance: 0% } to { offset-distance: 100% } }
+  .scene .tp { transform-box: fill-box; transform-origin: center; animation: pop .6s cubic-bezier(.3, 1.7, .5, 1) calc(var(--t) + 1.6s + var(--i) * .85s) both; }
+  @keyframes pop { from { transform: scale(0); opacity: 0 } }
+  .shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(9, 16, 24, .55), rgba(9, 16, 24, 0) 45%, rgba(9, 16, 24, .7)); }
+  .shade.deep { background: rgba(9, 16, 24, .62); }
+  .grain { position: absolute; inset: 0; opacity: .25; mix-blend-mode: overlay;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .txt { position: absolute; left: 84px; right: 84px; }
+  h1, h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; letter-spacing: -.01em; text-wrap: balance; }
+  h1 { font-size: 138px; line-height: .98; }
+  h2 { font-size: 96px; line-height: 1.02; }
+  em { font-style: italic; color: #ffcfb3; }
+  p { font-size: 44px; line-height: 1.35; font-weight: 500; color: rgba(255, 255, 255, .9); text-wrap: balance; }
+  .eyebrow { font-size: 30px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #ffcfb3; }
+  .up { animation: up 1s cubic-bezier(.2, .8, .2, 1) var(--t) both; }
+  @keyframes up { from { opacity: 0; transform: translateY(70px) } }
+  .line { display: block; overflow: hidden; }
+  .line > span { display: block; animation: rise 1.1s cubic-bezier(.2, .8, .2, 1) var(--t) both; }
+  @keyframes rise { from { transform: translateY(110%) } }
+  .lost { font: 500 84px/1.15 "Cormorant Garamond", serif; margin-bottom: 44px; animation: lost 4.2s ease var(--t) both; }
+  .lost small { display: block; font: 600 34px Manrope, sans-serif; letter-spacing: .04em; color: rgba(255, 255, 255, .62); margin-top: 6px; }
+  @keyframes lost { 0% { opacity: 0; transform: translateX(-60px) } 18% { opacity: 1; transform: none } 62% { opacity: 1; filter: blur(0) } 100% { opacity: .28; filter: blur(5px) } }
+  .chips { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
+  .chips span { font-size: 34px; font-weight: 700; padding: 14px 30px; border-radius: 99px; border: 2px solid rgba(255, 255, 255, .45); background: rgba(9, 16, 24, .35); }
+
+  /* телефон с живой страницей маршрута */
+  .phone { position: absolute; left: 236px; top: 610px; width: 608px; height: 1208px; border: 14px solid #0a1017; border-radius: 70px; overflow: hidden; background: #e7edef;
+    box-shadow: 0 60px 120px rgba(0, 0, 0, .55), 0 0 0 2px rgba(255, 255, 255, .18); animation: phone 1.2s cubic-bezier(.2, .8, .2, 1) var(--t) both; }
+  @keyframes phone { from { transform: translateY(900px) rotate(4deg) } }
+  .phone img { width: 100%; display: block; }
+  .scroll { animation: scroll 15s cubic-bezier(.6, 0, .3, 1) 13.5s both; }
+  /* остановки: обложка → карта и профиль высот → пометки → отзывы (координаты из вёрстки страницы) */
+  @keyframes scroll { 0%, 20% { transform: none } 28%, 50% { transform: translateY(-892px) } 58%, 76% { transform: translateY(-2736px) } 84%, 100% { transform: translateY(-3376px) } }
+  .cap { position: absolute; left: 84px; right: 84px; top: 170px; animation: cap var(--d) ease var(--t) both; }
+  .cap h2 { font-size: 88px; }
+  .cap .eyebrow { margin-bottom: 22px; }
+  @keyframes cap { 0% { opacity: 0; transform: translateY(50px) } 14% { opacity: 1; transform: none } 88% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(-40px) } }
+  .touch { position: absolute; left: 430px; top: 1290px; width: 84px; height: 84px; border-radius: 50%; border: 5px solid #fff; background: rgba(255, 255, 255, .3); animation: touch 3.4s ease-in-out 18s both; }
+  @keyframes touch { 0% { opacity: 0; transform: translateX(-150px) scale(1.5) } 15% { opacity: 1; transform: translateX(-150px) } 80% { opacity: 1; transform: translateX(190px) } 100% { opacity: 0; transform: translateX(190px) scale(1.5) } }
+
+  .gain { display: flex; gap: 34px; align-items: baseline; padding: 38px 0; border-top: 2px solid rgba(255, 255, 255, .28); }
+  .gain b { font: italic 500 92px/1 "Cormorant Garamond", serif; color: #ffcfb3; width: 96px; flex: none; }
+  .gain h3 { font: 500 72px/1.05 "Cormorant Garamond", serif; }
+  .gain span { display: block; font-size: 36px; color: rgba(255, 255, 255, .8); margin-top: 10px; }
+  .logo { display: flex; align-items: center; gap: 30px; font: 600 190px/1 "Cormorant Garamond", serif; }
+  .logo svg { color: #ffcfb3; }
 </style>
 </head>
 <body>
 
 <!-- 1. Крючок -->
-<section class="s dark" style="--t:0s;--d:3.6s">
-  <h1 class="up" style="--t:.2s">Собираетесь<br>в поход?</h1>
-  <div class="gap"></div>
-  <h2 class="up o" style="--t:1.4s">Этот маршрут уже кто-то прошёл.</h2>
+<section class="s" style="--t:0s;--d:4.6s">
+  <div class="bg" data-scene="7" data-mood="dawn"></div><div class="shade"></div><div class="grain"></div>
+  <div class="txt" style="top:230px">
+    <div class="eyebrow up" style="--t:.3s">Собираетесь в поход?</div>
+    <h1 style="margin-top:36px"><span class="line"><span style="--t:.6s">Эту тропу</span></span><span class="line"><span style="--t:.85s">уже <em>кто-то</em></span></span><span class="line"><span style="--t:1.1s"><em>прошёл</em></span></span></h1>
+  </div>
 </section>
 
 <!-- 2. Боль -->
-<section class="s dark" style="--t:3.6s;--d:4.6s">
-  <div class="mess up" style="--t:3.9s">Треки<small>остаются в часах</small></div>
-  <div class="mess up" style="--t:4.5s">Советы<small>тонут в чатах</small></div>
-  <div class="mess up" style="--t:5.1s">Фото<small>теряются в галерее</small></div>
-  <div class="gap"></div>
-  <h2 class="up" style="--t:6.1s">А на тропе — <span class="o">снова вслепую.</span></h2>
-</section>
-
-<!-- 3. Решение: трек -->
-<section class="s" style="--t:8.2s;--d:5.2s;justify-content:flex-start;padding-top:130px">
-  <div class="logo up" style="--t:8.4s;font-size:96px">
-    <svg viewBox="0 0 32 32" width="100" height="100"><path d="M3 27 12 9l5 9 3-5 9 14z" fill="#fff"/></svg>Тропа
+<section class="s" style="--t:4.6s;--d:5s">
+  <div class="bg" data-scene="12" data-mood="dusk"></div><div class="shade deep"></div><div class="grain"></div>
+  <div class="txt" style="top:360px">
+    <div class="lost" style="--t:4.9s">Трек<small>остался в часах</small></div>
+    <div class="lost" style="--t:5.6s">Советы<small>утонули в чатах</small></div>
+    <div class="lost" style="--t:6.3s">Фото<small>потерялись в галерее</small></div>
+    <h2 class="up" style="--t:7.5s;margin-top:90px">И следующий идёт <em>вслепую</em></h2>
   </div>
-  <div class="gap"></div>
-  <h2 class="up" style="--t:8.8s">Включили трекер —<br>и просто идите</h2>
-  <svg viewBox="0 0 1080 860" width="1080" height="860" style="margin:30px -90px 0">
-    <path d="M0 520 220 250l150 190 170-300 200 310 140-170 200 240v340H0z" fill="#1f5c3f"/>
-    <path d="M0 640 260 430l190 170 210-250 230 260 190-140v390H0z" fill="#2c7a54"/>
-    <path d="M540 140 500 215l40-22 44 30z" fill="#fff" opacity=".9"/>
-    <path class="draw" style="--t:9.6s" pathLength="1" d="M90 760 C 220 700 260 600 380 590 S 520 480 640 430 S 820 330 960 150" fill="none" stroke="#ff9a57" stroke-width="12" stroke-linecap="round"/>
-    <circle class="walker" style="--t:9.6s" r="22" fill="#fff" stroke="#e8732c" stroke-width="10"/>
-  </svg>
-  <p class="up" style="--t:10.6s">Трек с часов или телефона превращается в маршрут: дистанция, время, набор высоты.</p>
-  <div class="chips up" style="--t:11.2s"><span>Apple Watch</span><span>Garmin</span><span>Strava</span><span>Google Карты</span></div>
 </section>
 
-<!-- 4. Пометки -->
-<section class="s cream withphone" style="--t:13.4s;--d:4.6s">
-  <h2 class="up" style="--t:13.6s">Отмечайте важное <span class="o">прямо на карте</span></h2>
-  <div class="phone up" style="--t:13.9s"><img src="shots/s-route.png" alt=""></div>
-  <div class="tag pop" style="--t:15.0s;left:70px;top:1130px">💧 Родник</div>
-  <div class="tag pop" style="--t:15.5s;right:60px;top:980px">⛺ Стоянка</div>
-  <div class="tag pop" style="--t:16.0s;left:110px;top:1420px;background:#b3261e">⚠ Скользко</div>
-</section>
-
-<!-- 5. Отзывы -->
-<section class="s cream withphone" style="--t:18s;--d:4.6s">
-  <h2 class="up" style="--t:18.2s">Выбирайте маршрут <span class="o">по отзывам тех, кто там был</span></h2>
-  <div class="phone up" style="--t:18.5s"><img src="shots/s-reviews.png" alt=""></div>
-</section>
-
-<!-- 6. Стена и маршруты -->
-<section class="s cream withphone" style="--t:22.6s;--d:4.2s">
-  <h2 class="up" style="--t:22.8s">Ваша стена и <span class="o">коллекция маршрутов</span></h2>
-  <div class="phone up" style="--t:23.1s"><img src="shots/s-profile.png" alt=""></div>
-  <div class="tag pop" style="--t:24.6s;right:70px;top:1500px">Поделиться ссылкой ↗</div>
-</section>
-
-<!-- 7. Выгода -->
-<section class="s" style="--t:26.8s;--d:5s">
-  <h2 class="up" style="--t:27s">Что получает турист</h2>
-  <div class="gap"></div>
-  <div class="benefit up" style="--t:27.5s"><i>1</i><div><b>Меньше сюрпризов</b><span>вода, стоянки и опасные участки известны заранее</span></div></div>
-  <div class="benefit up" style="--t:28.1s"><i>2</i><div><b>План за минуты</b><span>готовый трек можно скачать и идти по нему</span></div></div>
-  <div class="benefit up" style="--t:28.7s"><i>3</i><div><b>Все походы в одном месте</b><span>километры, высоты, фото и истории</span></div></div>
-  <div class="benefit up" style="--t:29.3s"><i>4</i><div><b>Свои среди своих</b><span>советы от тех, кто реально прошёл</span></div></div>
-</section>
-
-<!-- 8. Призыв -->
-<section class="s dark" style="--t:31.8s;--d:4.4s;animation-name:last">
-  <div class="logo pop" style="--t:32s">
-    <svg viewBox="0 0 32 32" width="170" height="170"><path d="M3 27 12 9l5 9 3-5 9 14z" fill="#fff"/><path d="M6 29c5-4 9 2 13-2s6-1 8-3" fill="none" stroke="#e8732c" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 4.5"/></svg>Тропа
+<!-- 3. Решение -->
+<section class="s" style="--t:9.6s;--d:4.4s">
+  <div class="bg" data-scene="7" data-mood="day" data-trail="1"></div><div class="shade"></div><div class="grain"></div>
+  <div class="txt" style="top:200px">
+    <div class="eyebrow up" style="--t:9.9s">Тропа · соцсеть маршрутов</div>
+    <h2 class="up" style="--t:10.1s;margin-top:30px;font-size:118px">Включите трекер и <em>просто идите</em></h2>
+    <p class="up" style="--t:10.9s;margin-top:34px">После похода трек с часов или телефона становится маршрутом.</p>
+    <div class="chips up" style="--t:11.5s"><span>Apple Watch</span><span>Garmin</span><span>Strava</span><span>Google Карты</span></div>
   </div>
-  <div class="gap"></div>
-  <h2 class="up" style="--t:32.7s">Пройди. <span class="o">Отметь.</span> Поделись.</h2>
-  <div class="gap"></div>
-  <p class="up" style="--t:33.5s">Соцсеть туристических маршрутов</p>
 </section>
-<style>@keyframes last { 0% { opacity: 0 } 7%, 100% { opacity: 1 } }</style>
 
+<!-- 4. Продукт: одна страница маршрута, прокрутка по остановкам -->
+<section class="s" style="--t:13.5s;--d:15s">
+  <div class="bg" data-scene="1" data-mood="dusk" style="filter:blur(14px)"></div><div class="shade deep"></div><div class="grain"></div>
+  <div class="cap" style="--t:13.8s;--d:3.4s"><div class="eyebrow">Маршрут собирается сам</div><h2>Километры, высота, время <em>без ручного ввода</em></h2></div>
+  <div class="cap" style="--t:17.5s;--d:4.2s"><div class="eyebrow">Карта и профиль высот</div><h2>Проведите пальцем и <em>пройдите путь заранее</em></h2></div>
+  <div class="cap" style="--t:22s;--d:3.6s"><div class="eyebrow">Пометки с пути</div><h2>Вода, стоянки, <em>опасные места</em></h2></div>
+  <div class="cap" style="--t:25.9s;--d:2.6s"><div class="eyebrow">Отзывы и подсказки</div><h2>Советы тех, <em>кто вернулся</em></h2></div>
+  <div class="phone" style="--t:13.7s"><img class="scroll" src="shots/route-long.jpg" alt=""></div>
+  <div class="touch"></div>
+</section>
+
+<!-- 5. Профиль -->
+<section class="s" style="--t:28.5s;--d:3.6s">
+  <div class="bg" data-scene="101" data-mood="dawn" style="filter:blur(14px)"></div><div class="shade deep"></div><div class="grain"></div>
+  <div class="cap" style="--t:28.7s;--d:3.4s"><div class="eyebrow">Стена и маршруты</div><h2>Все ваши походы <em>в одном месте</em></h2></div>
+  <div class="phone" style="--t:28.6s"><img src="shots/user.jpg" alt=""></div>
+</section>
+
+<!-- 6. Выгода -->
+<section class="s" style="--t:32.1s;--d:4.6s">
+  <div class="bg" data-scene="5" data-mood="dusk"></div><div class="shade deep"></div><div class="grain"></div>
+  <div class="txt" style="top:250px">
+    <div class="eyebrow up" style="--t:32.3s">Что получает турист</div>
+    <div style="margin-top:50px">
+      <div class="gain up" style="--t:32.6s"><b>1</b><div><h3>Меньше сюрпризов</h3><span>вода, стоянки и сложные участки известны до выхода</span></div></div>
+      <div class="gain up" style="--t:33.1s"><b>2</b><div><h3>План за минуты</h3><span>готовый трек можно скачать и идти по нему</span></div></div>
+      <div class="gain up" style="--t:33.6s"><b>3</b><div><h3>Память о каждом пути</h3><span>километры, высоты, фото и истории</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Призыв -->
+<section class="s last" style="--t:36.7s;--d:4.5s">
+  <div class="bg" data-scene="7" data-mood="dawn"></div><div class="shade"></div><div class="grain"></div>
+  <div class="txt" style="top:300px">
+    <div class="logo up" style="--t:37s"><svg viewBox="0 0 32 32" width="170" height="170"><path d="M2 27 12 8l5 9 3.5-5.5L30 27z" fill="currentColor"/></svg>Тропа</div>
+    <h2 class="up" style="--t:37.6s;margin-top:50px">Пройди. <em>Отметь.</em> Поделись.</h2>
+    <p class="up" style="--t:38.3s;margin-top:34px">Соцсеть туристических маршрутов</p>
+  </div>
+</section>
+
+<script src="../public/scene.js"></script>
 <script>
+  document.querySelectorAll('[data-scene]').forEach((el, i) => {
+    el.style.cssText += ';--t:' + el.parentNode.style.getPropertyValue('--t') + ';--d:' + el.parentNode.style.getPropertyValue('--d');
+    el.innerHTML = TropaScene(Number(el.dataset.scene), { mood: el.dataset.mood, h: 1500, trail: !!el.dataset.trail, key: 'p' + i });
+  });
   // При просмотре в браузере вписываем кадр 1080×1920 в окно; render.js ставит ?capture и снимает 1:1.
   if (!location.search.includes('capture')) {
     const fit = () => (document.body.style.transform = `scale(${Math.min(innerWidth / 1080, innerHeight / 1920)})`);

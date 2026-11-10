@@ -5,7 +5,7 @@ const { execFileSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const FPS = 30, SECONDS = 36.2;
+const FPS = 30, SECONDS = 41.2;
 const frames = path.join(__dirname, 'frames');
 
 (async () => {
@@ -17,7 +17,11 @@ const frames = path.join(__dirname, 'frames');
   await page.waitForLoadState('networkidle');
   const total = Math.round(FPS * SECONDS);
   for (let i = 0; i < total; i++) {
-    await page.evaluate((ms) => document.getAnimations().forEach((a) => { a.pause(); a.currentTime = ms; }), (i / FPS) * 1000);
+    // два rAF после перемотки: иначе кадр иногда снимается раньше, чем браузер дорисует длинную картинку
+    await page.evaluate((ms) => new Promise((done) => {
+      document.getAnimations().forEach((a) => { a.pause(); a.currentTime = ms; });
+      requestAnimationFrame(() => requestAnimationFrame(done));
+    }), (i / FPS) * 1000);
     await page.screenshot({ path: path.join(frames, String(i).padStart(5, '0') + '.jpg'), type: 'jpeg', quality: 93 });
   }
   await browser.close();

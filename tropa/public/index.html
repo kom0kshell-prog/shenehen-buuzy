@@ -5,23 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Тропа — маршруты, которые уже кто-то прошёл</title>
 <meta name="description" content="Соцсеть туристов: синхронизируйте трек с часов или телефона, оставляйте пометки и фото, выбирайте маршрут по отзывам тех, кто его прошёл.">
-<meta name="theme-color" content="#1f5c3f">
-<link rel="stylesheet" href="/vendor/leaflet.css">
-<link rel="stylesheet" href="/style.css">
+<meta name="theme-color" content="#0e1822">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!--app-->
 <header class="top">
-  <a class="brand" href="#/"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M3 27 12 9l5 9 3-5 9 14z" fill="currentColor"/><path d="M6 29c5-4 9 2 13-2s6-1 8-3" fill="none" stroke="#e8732c" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 4.5"/></svg>Тропа</a>
+  <a class="brand" href="#"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M2 27 12 8l5 9 3.5-5.5L30 27z" fill="currentColor"/></svg>Тропа</a>
+  <nav class="tabs" aria-label="Основная навигация">
+    <a href="#" data-tab="explore">Куда пойти</a>
+    <a href="#feed" data-tab="feed">Лента</a>
+    <a href="#add" data-tab="add" class="cta">+ Трек</a>
+    <a href="#me" data-tab="me">Профиль</a>
+  </nav>
   <span id="who"></span>
 </header>
 <main id="app" aria-live="polite"></main>
-<nav class="tabs" aria-label="Основная навигация">
-  <a href="#/" data-tab="explore">Куда пойти</a>
-  <a href="#/feed" data-tab="feed">Лента</a>
-  <a href="#/add" data-tab="add" class="cta">+ Трек</a>
-  <a href="#/me" data-tab="me">Профиль</a>
-</nav>
-<script src="/vendor/leaflet.js"></script>
-<script src="/app.js"></script>
+<script src="vendor/leaflet.js"></script>
+<script src="scene.js"></script>
+<!--demo-->
+<script src="app.js"></script>
+<!--/app-->
 </body>
 </html>
